@@ -53,10 +53,13 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                   </li>
                 </ul>
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
+                {% if user.is_authenticated %}
+                <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">
+                  <label for="#" class="text-light">Hola {{user.first_name}} {{user.last_name}}</label>
+                  {% csrf_token %}
+                  <button class="btn btn-outline-warning" type="submit">Salir</button>
                 </form>
+                {% endif %}
               </div>
             </div>
           </nav>
