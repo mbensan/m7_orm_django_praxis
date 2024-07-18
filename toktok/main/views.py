@@ -37,6 +37,23 @@ def edit_user(req):
   messages.success(req, "Ha actualizado sus datos con éxito")
   return redirect('/')
 
+def change_password(req):
+  # 1. Recibo los datos del formulario
+  password = req.POST['password']
+  pass_repeat = req.POST['pass_repeat']
+  # 2. Valido que ambas contraseñas coincidan
+  if password != pass_repeat:
+    messages.error(req, 'Las contraseñas no coinciden')
+    return redirect('/accounts/profile')
+  # 3. Actualizamos la contraseña
+  req.user.set_password(password)
+  req.user.save()
+  # 4. Le avisamos al usuario que el cambio fué exitoso
+  messages.success(req, 'Contraseña actualizada')
+  return redirect('/accounts/profile')
+
+
+
 # pendientes para trabajar con grupos
 def solo_arrendadores(req):
   return HttpResponse('sólo arrendadores')
