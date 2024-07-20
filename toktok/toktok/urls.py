@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from main.views import home, solo_arrendadores, solo_arrendatarios, profile, edit_user, change_password
-from inmuebles.views import nuevo_inmueble
+from inmuebles.views import nuevo_inmueble, crear_inmueble
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('arrendadores/', solo_arrendadores, name='solo_arrendadores'),
     path('arrendatarios/', solo_arrendatarios, name='solo_arrendatarios'),
     path('inmuebles/nuevo/', nuevo_inmueble, name='nuevo_inmueble'),
+    path('inmuebles/crear/', crear_inmueble, name='crear_inmueble'),
 ]
