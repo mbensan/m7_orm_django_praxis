@@ -39,6 +39,11 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile' %}">Mis Datos</a>
                   </li>
+                  {% if user.user_profile.rol == 'arrendador' or user.is_staff %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'nuevo_inmueble' %}">Agregar Inmueble</a>
+                    </li>
+                  {% endif %}
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Dropdown

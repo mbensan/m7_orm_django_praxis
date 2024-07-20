@@ -11,7 +11,7 @@ class UserProfile(models.Model):
   rol = models.CharField(max_length=255, choices=roles, default='arrendatario')
 
   def __str__(self):
-    return f'{self.user.first_name} {self.user.last_name} ({self.id})'
+    return f'{self.user.first_name} {self.user.last_name} ({self.rol})'
 
 class Region(models.Model):
   cod = models.CharField(max_length=2, primary_key=True)
@@ -30,7 +30,7 @@ class Comuna(models.Model):
 
 
 class Inmueble(models.Model):
-  tipos = (('casa', 'Casa'), ('departamento', 'Departamento'), ('bodega', 'Bodega'))
+  tipos = (('casa', 'Casa'), ('departamento', 'Departamento'), ('bodega', 'Bodega'), ('parcela', 'Parcela'))
 
   nombre = models.CharField(max_length=50)
   descripcion = models.TextField(max_length=1500)
