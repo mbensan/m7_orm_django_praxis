@@ -40,7 +40,7 @@ def crear_inmueble(req):
     req.POST['direccion'],
     req.POST['tipo_inmueble'],
     int(req.POST['precio']),
-    int(req.POST['comuna_cod']),
+    req.POST['comuna_cod'],
     propietario_rut
   )
   return HttpResponse('llegamos!')
