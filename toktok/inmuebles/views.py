@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 from main.models import Inmueble, Region, Comuna
 from main.services import crear_inmueble as crear_inmueble_service
+from inmuebles.forms import InmuebleForm
 
 # vamos a crear un test que sólo pasan los 'arrendadores'
 def solo_arrendadores(user):
@@ -10,6 +11,24 @@ def solo_arrendadores(user):
     return True
   else:
     return False
+
+@user_passes_test(solo_arrendadores)
+def editar_inmueble(req, id):
+  if req.method == 'GET':
+    # 1. Obtengo elinmueble a editar
+    inmueble = Inmueble.objects.get(id=id)
+    # 2. Obtengo las regiones y comunas
+    regiones = Region.objects.all()
+    comunas = Comuna.objects.all()
+    # 3. Creo el 'context' con toda la info que requiere el template
+    context = {
+      'inmueble': inmueble,
+      'regiones': regiones,
+      'comunas': comunas
+    }
+    return render(req, 'editar_inmueble.html', context)
+  else:
+    return HttpResponse('es un POST')
 
 @user_passes_test(solo_arrendadores)
 def nuevo_inmueble(req):

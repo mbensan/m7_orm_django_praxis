@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
+from django import forms
 
 class UserProfile(models.Model):
   # User: username(rut), email, first_name, last_name, password
