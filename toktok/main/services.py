@@ -11,11 +11,11 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, num_estacion
 
   Inmueble.objects.create(nombre=nombre, descripcion=descripcion, m2_construidos=m2_construidos, m2_totales=m2_totales, num_estacionamientos=num_estacionamientos, num_habitaciones=num_habitaciones, num_baños=num_baños, direccion=direccion, tipo_inmueble=tipo_inmueble, precio=precio, comuna=comuna, propietario=propietario)
 
-def editar_inmueble(*args):
+def editar_inmueble(inmueble_id):
   pass
 
 def eliminar_inmueble(inmueble_id):
-  pass
+  Inmueble.objects.get(id=inmueble_id).delete()
 
 def crear_user(username, first_name, last_name, email, password, pass_confirm, direccion, telefono=None) -> list[bool, str]:
   # 1. Validamos que las password coincidan

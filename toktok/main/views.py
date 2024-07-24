@@ -12,7 +12,18 @@ def home(req):
 
 @login_required
 def profile(req):
-  return render(req, 'profile.html')
+  user = req.user
+  mis_inmuebles = None
+
+  if user.user_profile.rol == 'arrendador':
+    mis_inmuebles = user.inmuebles.all()
+  elif user.user_profile.rol == 'arrendatario':
+    pass
+
+  context = {
+    'mis_inmuebles': mis_inmuebles
+  }
+  return render(req, 'profile.html', context)
 
 @login_required
 def edit_user(req):

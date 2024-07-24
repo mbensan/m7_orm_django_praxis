@@ -73,7 +73,12 @@
           <select class="form-select" name="region_cod" id="region_cod">
             <option value>Selecciona una Región</option>
             {% for region in regiones %}
-              <option value="{{ region.cod }}">{{ region.nombre }}</option>
+              <option
+                value="{{ region.cod }}"
+                {% if region.cod == cod_region %}selected{% endif %}
+              >
+                {{ region.nombre }}
+              </option>
             {% endfor %}
           </select>
         </div>
