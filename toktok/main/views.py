@@ -2,12 +2,35 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 from main.services import editar_user_sin_password
+from toktok.main.models import Comuna, Region
 
+def filtrar_inmuebles(region_cod, comuna_cod, palabra):
+  filtro_palabra = None
+  if palabra != '':
+    filtro_palabra = Q(nombre__icontains=palabra) | Q(descripcion__icontains=palabra)
+  
+  filtro_ubicacion = None
+  if comuna_cod != '':
+    comuna = Comuna.objects.get(cod=comuna_cod)
+    filtro_ubicacion = Q(comuna=comuna)
+  elif region_cod != '':
+    region = Region.objects.get(cod=region_cod)
+    comunas_region = region.comunas
+    filtro_ubicacion = Q(comuna__in=comunas_region)
+
+  return []
 
 # Create your views here.
 @login_required
 def home(req):
+  datos_form = req.GET
+  region_cod = datos_form.get('region_cod', '')
+  comuna_cod = datos_form.get('comuna_cod', '')
+  palabra = datos_form.get('palabra', '')
+  inmuebles = filtrar_inmuebles(region_cod, comuna_cod, palabra)
+
   return render(req, 'home.html')
 
 @login_required
